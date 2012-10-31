@@ -1,0 +1,41 @@
+﻿@model MvcApplication1.ViewModels.PersonViewModel
+
+<h2>Edit</h2>
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="message-success"><p>@Html.Raw(Model.SuccessMessage)</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="message-error"><p>@Html.Raw(Model.ErrorMessage)</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.InfoMessage))
+{
+    <div class="message-info"><p>@Html.Raw(Model.InfoMessage)</p></div>
+}
+
+    @using (Html.BeginForm("Edit", "Person"))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset id="editPerson">
+            <legend>Edit Person</legend>
+            
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.LastName)
+                    @Html.TextBoxFor(m => m.LastName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateOfBirth)
+                    @Html.TextBoxFor(m => m.DateOfBirth)
+                </li>
+            </ol>
+        </fieldset>
+        
+        <input type="submit" value="Submit" />
+        @Html.ActionLink("Back to List", "Index")
+    }

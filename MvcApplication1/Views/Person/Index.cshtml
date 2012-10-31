@@ -1,0 +1,57 @@
+﻿@model MvcApplication1.ViewModels.PersonIndexViewModel
+
+
+<h2>List of People</h2>
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="message-success"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="message-error"><p>@Model.ErrorMessage</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.InfoMessage))
+{
+    <div class="message-info"><p>@Model.InfoMessage</p></div>
+}
+
+@if (Model.PersonViewModels.Count == 0)
+{
+    <div class="message-info">
+        <p>There are no people registered.</p>
+        <p>@Html.ActionLink("Add New Person", "Create")</p>
+    </div>
+} 
+else 
+{    
+    @Html.ActionLink("Add New Person", "Create")
+    <table>
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Last Name</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Primary Email</th>
+                <th scope="col">Primary Phone</th>
+                <th scope="col">Primary Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PersonViewModels)
+            {
+                <tr>
+                    <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id } )</td>
+                    <td>@item.LastName</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.DateOfBirth</td>
+                    <td>@item.PrimaryEmail</td>
+                    <td>@item.PrimaryPhone</td>
+                    <td>@item.PrimaryAddress</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+
+}
