@@ -267,7 +267,12 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.ascx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -309,6 +314,8 @@
     <Content Include="Views\Person\Index.cshtml" />
     <Content Include="Views\Person\Create.cshtml" />
     <Content Include="Views\Person\Edit.cshtml" />
+    <Content Include="Views\Shared\_PersonEditor.cshtml" />
+    <Content Include="Views\Shared\_Messages.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -14,9 +14,9 @@ namespace MvcApplication1.Extensions
             for (var i = 0; i < messages.Count; i++)
             {
                 if (i == 0)
-                    results.Append(string.Format("Exception: {0}<br />", messages[i]));
+                    results.Append(string.Format("Exception: {0}", messages[i]));
                 else
-                    results.Append(string.Format("Inner Exception {1}: {0}<br />", messages[i], i));
+                    results.Append(string.Format(" : Inner Exception {1}: {0}", messages[i], i));
             }
 
             return results.ToString();

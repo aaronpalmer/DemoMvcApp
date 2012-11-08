@@ -42,12 +42,9 @@ else
             {
                 <tr>
                     <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id } )</td>
-                    <td>@item.LastName</td>
-                    <td>@item.FirstName</td>
-                    <td>@item.DateOfBirth</td>
-                    <td>@item.PrimaryEmail</td>
-                    <td>@item.PrimaryPhone</td>
-                    <td>@item.PrimaryAddress</td>
+                    <td>@Html.DisplayFor(x => item.LastName)</td>
+                    <td>@Html.DisplayFor(x => item.FirstName)</td>
+                    <td>@Html.DisplayFor(x => item.DateOfBirth)</td>
                 </tr>
             }
         </tbody>

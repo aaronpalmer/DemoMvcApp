@@ -31,10 +31,7 @@ namespace MvcApplication1.Controllers
                     Id = p.Id,
                     FirstName = p.FirstName, 
                     LastName = p.LastName, 
-                    DateOfBirth = p.DateOfBirth, 
-                    PrimaryEmail = "pEmail",
-                    PrimaryPhone = "pPhone",
-                    PrimaryAddress = "pAddress",
+                    DateOfBirth = p.DateOfBirth
                 }
             ).ToList();
 
@@ -61,6 +58,7 @@ namespace MvcApplication1.Controllers
 
         // POST: /Person/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Person person, int? id)
         {
             return Save(person, "Index", "Create");
@@ -80,6 +78,7 @@ namespace MvcApplication1.Controllers
 
         // Post: /Person/Edit/id
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Person person)
         {
             var dbPerson = PersonRepository.GetPerson(person.Id);
@@ -92,28 +91,49 @@ namespace MvcApplication1.Controllers
             return Save(dbPerson, "Index", "Edit");
         }
 
+        // GET: Email create / edit
+        public ActionResult CreateEmail()
+        {
+            return View();
+        }
+
+        public ActionResult EditEmail(Email email, int? id, int? personId)
+        {
+            var isDirty = PersonRepository.IsDirty(email);
+            if (isDirty && !id.HasValue) return View("Create");
+
+            if (!isDirty && personId.HasValue)
+            {
+                var person = PersonRepository.GetPerson(personId.Value);
+
+            }
+
+            return View(email);
+        }
+
+
         private ActionResult Save(Person person, string successAction, string failAction)
         {
-            try
+            if (ModelState.IsValid)
             {
-                PersonRepository.SavePerson(person);
-                TempData["SuccessMessage"] = string.Format("Success! \"{0} {1}\" has been saved! ", person.FirstName, person.LastName);
-                return RedirectToAction(successAction);
-            }
-            catch (DbEntityValidationException ex)
-            {
-                TempData["ErrorMessage"] = string.Format("Error saving \"{0} {1}\" Please ensure everything is formatted properly and try again.", person.FirstName, person.LastName);
-                TempData["InfoMessage"] = ex.GetFormattedExceptionMessage();
-            }
-            catch (DbUpdateException ex)
-            {
-                TempData["ErrorMessage"] = string.Format("Error saving \"{0} {1}\" Please ensure everything is formatted properly and try again.", person.FirstName, person.LastName);
-                TempData["InfoMessage"] = ex.GetFormattedExceptionMessage();
-            }
-            catch (DBConcurrencyException ex)
-            {
-                TempData["ErrorMessage"] = string.Format("Error saving \"{0} {1}\" Please try again.", person.FirstName, person.LastName);
-                TempData["InfoMessage"] = ex.GetFormattedExceptionMessage();
+                try
+                {
+                    PersonRepository.SavePerson(person);
+                    TempData["SuccessMessage"] = string.Format("Success! \"{0} {1}\" has been saved! ", person.FirstName, person.LastName);
+                    return RedirectToAction(successAction);
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    ModelState.AddModelError("", ex.GetFormattedExceptionMessage());
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", ex.GetFormattedExceptionMessage());
+                }
+                catch (DBConcurrencyException ex)
+                {
+                    ModelState.AddModelError("", ex.GetFormattedExceptionMessage());
+                }
             }
 
             if (failAction == "Create")

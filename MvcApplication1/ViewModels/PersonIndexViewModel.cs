@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MvcApplication1.Core;
 
 namespace MvcApplication1.ViewModels
 {

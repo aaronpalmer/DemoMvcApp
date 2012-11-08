@@ -1,0 +1,24 @@
+﻿@model MvcApplication1.ViewModels.PersonViewModel
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <fieldset id="editPerson">
+            <legend>Edit Person</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.EditorFor(m => m.FirstName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.LastName)
+                    @Html.EditorFor(m => m.LastName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateOfBirth)
+                    @Html.EditorFor(m => m.DateOfBirth)
+                </li>
+            </ol>
+        </fieldset>
+        
+        <input type="submit" value="Submit" />
+        @Html.ActionLink("Back to List", "Index")

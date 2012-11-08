@@ -1,0 +1,14 @@
+﻿@model MvcApplication1.ViewModels.BaseViewModel
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="message-success"><p>@Html.Raw(Model.SuccessMessage)</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="message-error"><p>@Html.Raw(Model.ErrorMessage)</p></div>
+}
+@if (!string.IsNullOrEmpty(Model.InfoMessage))
+{
+    <div class="message-info"><p>@Html.Raw(Model.InfoMessage)</p></div>
+}
