@@ -12,7 +12,7 @@ using MvcApplication1.Extensions;
 
 namespace MvcApplication1.Controllers
 {
-    public class PersonController : Controller
+    public class PeopleController : Controller
     {
         [Dependency] // must be public in order to be registered via DI
         public IPersonRepository PersonRepository { get; set; }        
