@@ -1,4 +1,4 @@
-namespace MvcApplication1.Core
+namespace MvcApplication1.Core.Models
 {
     public class Email : BaseEntity
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MvcApplication1.Core;
+using MvcApplication1.Core.Models;
 
 namespace MvcApplication1.ViewModels
 {

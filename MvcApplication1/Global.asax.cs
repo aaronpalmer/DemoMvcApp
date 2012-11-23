@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using MvcApplication1.Core.Interfaces;
 using MvcApplication1.Data;
+using MvcApplication1.Data.Repositories;
 using Microsoft.Practices.Unity;
 
 namespace MvcApplication1

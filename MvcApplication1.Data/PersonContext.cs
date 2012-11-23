@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Data.Objects;
 using MvcApplication1.Core;
+using MvcApplication1.Core.Models;
 
 namespace MvcApplication1.Data
 {

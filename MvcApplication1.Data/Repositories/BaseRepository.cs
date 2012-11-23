@@ -6,8 +6,9 @@ using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using MvcApplication1.Core;
+using MvcApplication1.Core.Models;
 
-namespace MvcApplication1.Data
+namespace MvcApplication1.Data.Repositories
 {
     public class BaseRepository
     {
@@ -45,6 +46,16 @@ namespace MvcApplication1.Data
             var dbEntity = Get<T>(entity.Id);
 
             if (dbEntity == null) { dbSet.Add(entity); }
+
+            return _context.SaveChanges();
+        }
+
+        public int Delete<T>(T entity) where T : BaseEntity
+        {
+            var dbSet = _context.Set<T>();
+            var dbEntity = Get<T>(entity.Id);
+
+            if (dbEntity != null) { dbSet.Remove(dbEntity); }
 
             return _context.SaveChanges();
         }

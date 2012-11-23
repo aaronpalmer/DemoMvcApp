@@ -6,24 +6,3 @@
 {
     Html.RenderPartial("_PersonEditor", Model);
 }
-@*<h3>Emails</h3>
-    @Html.ActionLink("Add New Email", "CreateEmail")
-    <table>
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Email Address</th>
-                <th scope="col">Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Emails)
-            {
-                <tr>
-                    <td>@Html.ActionLink("Edit", "EditEmail", new { id = item.Id } )</td>
-                    <td>@Html.DisplayFor(x => item.Address)</td>
-                    <td>@Html.DisplayFor(x => item.EmailType)</td>
-                </tr>
-            }
-        </tbody>
-    </table>*@

@@ -4,8 +4,8 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
-using MvcApplication1.Core;
 using MvcApplication1.Core.Interfaces;
+using MvcApplication1.Core.Models;
 using MvcApplication1.ViewModels;
 using System.Linq;
 using MvcApplication1.Extensions;
@@ -20,29 +20,36 @@ namespace MvcApplication1.Controllers
         // GET: /Person/
         public ActionResult Index()
         {
+            return GetIndex();
+        }
+
+        public ActionResult GetIndex()
+        {
             var people = PersonRepository.GetPeople();
             var successMessage = TempData["SuccessMessage"] as string;
             var errorMessage = TempData["ErrorMessage"] as string;
             var infoMessage = TempData["InfoMessage"] as string;
 
-            var personViewModels = people.Select(p => 
+            var personViewModels = people.Select(p =>
                 new PersonViewModel
                 {
                     Id = p.Id,
-                    FirstName = p.FirstName, 
-                    LastName = p.LastName, 
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
                     DateOfBirth = p.DateOfBirth
                 }
             ).ToList();
 
-            var personIndexViewModel = new PersonIndexViewModel { 
-                PersonViewModels = personViewModels, 
-                SuccessMessage = successMessage, 
-                ErrorMessage = errorMessage, 
+            var personIndexViewModel = new PersonIndexViewModel
+            {
+                PersonViewModels = personViewModels,
+                SuccessMessage = successMessage,
+                ErrorMessage = errorMessage,
                 InfoMessage = infoMessage
             };
 
-            return View(personIndexViewModel);
+            return View("Index",personIndexViewModel);
+
         }
 
         // Get: /Person/Create
@@ -91,10 +98,29 @@ namespace MvcApplication1.Controllers
             return Save(dbPerson, "Index", "Edit");
         }
 
+        // GET: /Person/Delete/id
+        public ActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                var person = PersonRepository.GetPerson(id.Value);
+                if (person != null)
+                {
+                    var firstName = person.FirstName;
+                    var lastName = person.LastName;
+                    PersonRepository.DeletePerson(person);
+                    TempData["SuccessMessage"] = string.Format("Success! \"{0} {1}\" has been deleted! ", firstName, lastName);
+                }
+            }
+
+            return GetIndex();
+        }
+
+
         // GET: Email create / edit
         public ActionResult CreateEmail()
         {
-            return View();
+            return View("Index");
         }
 
         public ActionResult EditEmail(Email email, int? id, int? personId)
@@ -108,7 +134,7 @@ namespace MvcApplication1.Controllers
 
             }
 
-            return View(email);
+            return View("Index");
         }
 
 
@@ -181,6 +207,7 @@ namespace MvcApplication1.Controllers
 
             return View(personViewModel);
         }
+
 
     }
 }

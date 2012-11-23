@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MvcApplication1.Core
+namespace MvcApplication1.Core.Models
 {
     public class Person : BaseEntity
     {

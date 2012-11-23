@@ -2,17 +2,8 @@
 
 
 <h2>List of People</h2>
-@if (!string.IsNullOrEmpty(Model.SuccessMessage))
-{
-    <div class="message-success"><p>@Model.SuccessMessage</p></div>
-}
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <div class="message-error"><p>@Model.ErrorMessage</p></div>
-}
-@if (!string.IsNullOrEmpty(Model.InfoMessage))
-{
-    <div class="message-info"><p>@Model.InfoMessage</p></div>
+@{
+    Html.RenderPartial("_Messages", Model);
 }
 
 @if (Model.PersonViewModels.Count == 0)
@@ -29,18 +20,17 @@ else
         <thead>
             <tr>
                 <th scope="col"></th>
+                <th scope="col"></th>
                 <th scope="col">Last Name</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Date of Birth</th>
-                <th scope="col">Primary Email</th>
-                <th scope="col">Primary Phone</th>
-                <th scope="col">Primary Address</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.PersonViewModels)
             {
                 <tr>
+                    <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id } )</td>
                     <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id } )</td>
                     <td>@Html.DisplayFor(x => item.LastName)</td>
                     <td>@Html.DisplayFor(x => item.FirstName)</td>
